@@ -1,7 +1,10 @@
 # JavaScript Integration Examples
 
-> **💡 Recommendation**: For new projects, use the [TypeScript examples](../complete-demo/) instead. 
-> This directory contains basic JavaScript examples for reference.
+> **💡 Recommendation**: For new projects, use the [TypeScript examples](../complete-demo/) instead.
+> TypeScript provides better type safety and is the recommended approach for ERC-8004 integrations.
+
+> ⚠️ **Reference Examples** — The snippets below are illustrative patterns, not standalone runnable code.
+> For a working JavaScript client, see [`step-by-step/javascript/agent-client.js`](../step-by-step/javascript/agent-client.js).
 
 ## Frontend Integration
 

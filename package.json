@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "setup": "cd examples/complete-demo && ./setup.sh",
-    "demo": "cd examples/complete-demo && python demo.py",
+    "demo": "cd examples/complete-demo && npx ts-node src/demo.ts",
     "contracts:build": "cd examples/contracts && forge build",
     "contracts:test": "cd examples/contracts && forge test",
     "contracts:deploy": "cd examples/contracts && forge script script/Deploy.s.sol --rpc-url http://localhost:8545 --private-key $PRIVATE_KEY --broadcast"
