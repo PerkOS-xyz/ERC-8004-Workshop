@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.19;
+pragma solidity ^0.8.20;
 
 import "forge-std/Test.sol";
 import "../src/IdentityRegistry.sol";
@@ -106,18 +106,18 @@ contract ERC8004Test is Test {
         // For now, just test that the function doesn't revert
     }
     
-    function testFailInvalidTokenURI() public {
+    function testRevertInvalidTokenURI() public {
         vm.prank(alice);
-        // Should revert with empty token URI
+        vm.expectRevert();
         identityRegistry.register("");
     }
     
-    function testFailUnauthorizedAccess() public {
+    function testRevertUnauthorizedAccess() public {
         vm.prank(alice);
         uint256 agentId = identityRegistry.register("https://alice.com/metadata.json");
         
         vm.prank(bob);
-        // Should revert - bob cannot update Alice's metadata
+        vm.expectRevert();
         identityRegistry.updateTokenURI(agentId, "https://malicious.com/metadata.json");
     }
 }

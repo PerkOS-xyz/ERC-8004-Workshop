@@ -1,8 +1,13 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.19;
+pragma solidity ^0.8.20;
 
 import "@openzeppelin/contracts/utils/cryptography/ECDSA.sol";
 import "@openzeppelin/contracts/utils/cryptography/MessageHashUtils.sol";
+
+interface IIdentityRegistry {
+    function getAgentOwner(uint256 agentId) external view returns (address);
+    function agentExists(uint256 agentId) external view returns (bool);
+}
 
 /**
  * @title ReputationRegistry  
@@ -37,12 +42,6 @@ contract ReputationRegistry {
     FeedbackEntry[] public feedbackEntries;
     mapping(uint256 => uint256[]) public agentFeedback; // agentId => feedbackIds[]
     mapping(bytes32 => bool) public usedAuthorizations; // Prevent replay attacks
-    
-    // Interface for Identity Registry
-    interface IIdentityRegistry {
-        function getAgentOwner(uint256 agentId) external view returns (address);
-        function agentExists(uint256 agentId) external view returns (bool);
-    }
     
     IIdentityRegistry public immutable identityRegistry;
     

@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.19;
+pragma solidity ^0.8.20;
 
 import "forge-std/Script.sol";
 import "../src/IdentityRegistry.sol";
@@ -17,21 +17,21 @@ contract DeployERC8004 is Script {
             "AGENT"
         );
         
-        console.log("✅ IdentityRegistry deployed at:", address(identityRegistry));
+        console.log(" IdentityRegistry deployed at:", address(identityRegistry));
         
         // Deploy Reputation Registry
         ReputationRegistry reputationRegistry = new ReputationRegistry(
             address(identityRegistry)
         );
         
-        console.log("✅ ReputationRegistry deployed at:", address(reputationRegistry));
+        console.log(" ReputationRegistry deployed at:", address(reputationRegistry));
         
         // Deploy Validation Registry
         ValidationRegistry validationRegistry = new ValidationRegistry(
             address(identityRegistry)
         );
         
-        console.log("✅ ValidationRegistry deployed at:", address(validationRegistry));
+        console.log(" ValidationRegistry deployed at:", address(validationRegistry));
         
         vm.stopBroadcast();
         
@@ -43,6 +43,6 @@ contract DeployERC8004 is Script {
         ));
         
         vm.writeFile("deployment.env", deploymentInfo);
-        console.log("📄 Deployment addresses saved to deployment.env");
+        console.log(" Deployment addresses saved to deployment.env");
     }
 }

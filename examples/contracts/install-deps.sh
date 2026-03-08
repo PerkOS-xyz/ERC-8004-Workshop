@@ -3,10 +3,10 @@
 echo "📦 Installing Foundry dependencies..."
 
 # Install OpenZeppelin contracts
-forge install openzeppelin/openzeppelin-contracts@v5.0.0 --no-commit
+forge install openzeppelin/openzeppelin-contracts@v5.0.0
 
 # Install Forge standard library  
-forge install foundry-rs/forge-std --no-commit
+forge install foundry-rs/forge-std
 
 echo "✅ Foundry dependencies installed"
 echo ""

@@ -8,7 +8,7 @@ remappings = [
 ]
 
 # Compiler settings
-solc = "0.8.19"
+solc = "0.8.20"
 evm_version = "shanghai"
 
 # Test settings  
@@ -18,5 +18,7 @@ gas_reports = ["*"]
 # Formatter settings
 line_length = 100
 tab_width = 4
+
+fs_permissions = [{ access = "read-write", path = "./" }]
 
 # See more config options https://github.com/foundry-rs/foundry/tree/master/crates/config

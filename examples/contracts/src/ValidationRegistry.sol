@@ -1,5 +1,10 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.19;
+pragma solidity ^0.8.20;
+
+interface IIdentityRegistryV {
+    function agentExists(uint256 agentId) external view returns (bool);
+    function getAgentOwner(uint256 agentId) external view returns (address);
+}
 
 /**
  * @title ValidationRegistry
@@ -53,16 +58,10 @@ contract ValidationRegistry {
     uint256 public constant MIN_STAKE = 0.1 ether;
     uint256 public constant SLASH_PERCENTAGE = 50; // Slash 50% of stake for bad validation
     
-    // Interface for Identity Registry
-    interface IIdentityRegistry {
-        function agentExists(uint256 agentId) external view returns (bool);
-        function getAgentOwner(uint256 agentId) external view returns (address);
-    }
-    
-    IIdentityRegistry public immutable identityRegistry;
+    IIdentityRegistryV public immutable identityRegistry;
     
     constructor(address _identityRegistry) {
-        identityRegistry = IIdentityRegistry(_identityRegistry);
+        identityRegistry = IIdentityRegistryV(_identityRegistry);
     }
     
     /**
