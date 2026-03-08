@@ -1,0 +1,42 @@
+{
+  "name": "erc-8004-complete-demo",
+  "version": "1.0.0",
+  "description": "Complete ERC-8004 multi-agent demonstration in TypeScript",
+  "main": "dist/demo.js",
+  "scripts": {
+    "build": "tsc",
+    "start": "node dist/demo.js",
+    "dev": "ts-node src/demo.ts",
+    "setup": "./setup.sh",
+    "test": "jest",
+    "clean": "rm -rf dist"
+  },
+  "dependencies": {
+    "ethers": "^6.13.4",
+    "dotenv": "^16.4.7",
+    "chalk": "^4.1.2",
+    "commander": "^12.1.0",
+    "ora": "^5.4.1",
+    "inquirer": "^8.2.6"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.2",
+    "@types/inquirer": "^8.2.10",
+    "typescript": "^5.7.2",
+    "ts-node": "^10.9.2",
+    "jest": "^29.7.0",
+    "@types/jest": "^29.5.14"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "keywords": [
+    "erc-8004",
+    "trustless-agents",
+    "ethereum",
+    "ai-agents",
+    "demo"
+  ],
+  "author": "PerkOS Team",
+  "license": "MIT"
+}

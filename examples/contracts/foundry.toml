@@ -1,0 +1,22 @@
+[profile.default]
+src = "src"
+out = "out"  
+libs = ["lib"]
+remappings = [
+    "@openzeppelin/contracts/=lib/openzeppelin-contracts/contracts/",
+    "forge-std/=lib/forge-std/src/"
+]
+
+# Compiler settings
+solc = "0.8.19"
+evm_version = "shanghai"
+
+# Test settings  
+verbosity = 2
+gas_reports = ["*"]
+
+# Formatter settings
+line_length = 100
+tab_width = 4
+
+# See more config options https://github.com/foundry-rs/foundry/tree/master/crates/config

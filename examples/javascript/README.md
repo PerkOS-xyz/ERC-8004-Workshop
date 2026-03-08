@@ -1,0 +1,47 @@
+# JavaScript Integration Examples
+
+## Frontend Integration
+
+Examples for integrating ERC-8004 in web applications.
+
+### Web3 Client
+```javascript
+import { ethers } from 'ethers';
+
+class ERC8004Client {
+  constructor(provider, contractAddresses) {
+    this.provider = provider;
+    this.contracts = contractAddresses;
+  }
+
+  async discoverAgents(capability) {
+    // Implementation here
+  }
+}
+```
+
+### React Component
+```jsx
+import { useERC8004 } from './hooks/useERC8004';
+
+function AgentMarketplace() {
+  const { agents, loading } = useERC8004();
+  
+  return (
+    <div>
+      <h1>Trustless Agents</h1>
+      {agents.map(agent => (
+        <AgentCard key={agent.id} agent={agent} />
+      ))}
+    </div>
+  );
+}
+```
+
+## Node.js Backend
+
+Server-side agent implementation examples.
+
+---
+
+**Status**: 🚧 Under development - Examples coming soon!

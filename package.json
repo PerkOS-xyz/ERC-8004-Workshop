@@ -1,0 +1,39 @@
+{
+  "name": "erc-8004-workshop",
+  "version": "1.0.0",
+  "description": "Workshop materials and examples for ERC-8004: Trustless Agents",
+  "main": "index.js",
+  "scripts": {
+    "setup": "cd examples/complete-demo && ./setup.sh",
+    "demo": "cd examples/complete-demo && python demo.py",
+    "contracts:build": "cd examples/contracts && forge build",
+    "contracts:test": "cd examples/contracts && forge test",
+    "contracts:deploy": "cd examples/contracts && forge script script/Deploy.s.sol --rpc-url http://localhost:8545 --private-key $PRIVATE_KEY --broadcast"
+  },
+  "keywords": [
+    "ethereum",
+    "erc-8004",
+    "trustless-agents",
+    "ai-agents",
+    "blockchain",
+    "smart-contracts",
+    "workshop",
+    "tutorial"
+  ],
+  "author": "PerkOS Team",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/PerkOS-xyz/ERC-8004-Workshop.git"
+  },
+  "bugs": {
+    "url": "https://github.com/PerkOS-xyz/ERC-8004-Workshop/issues"
+  },
+  "homepage": "https://github.com/PerkOS-xyz/ERC-8004-Workshop#readme",
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "devDependencies": {
+    "foundry": "^1.0.0"
+  }
+}
