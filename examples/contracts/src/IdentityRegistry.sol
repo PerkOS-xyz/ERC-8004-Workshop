@@ -51,7 +51,12 @@ contract IdentityRegistry is ERC721URIStorage, Ownable {
         string calldata key, 
         bytes calldata value
     ) external {
-        require(_isAuthorized(ownerOf(agentId), msg.sender, agentId), "Not authorized");
+        require(
+            ownerOf(agentId) == msg.sender || 
+            getApproved(agentId) == msg.sender || 
+            isApprovedForAll(ownerOf(agentId), msg.sender), 
+            "Not authorized"
+        );
         
         _metadata[agentId][key] = value;
         emit MetadataSet(agentId, key, value);
@@ -102,7 +107,12 @@ contract IdentityRegistry is ERC721URIStorage, Ownable {
      * @param tokenURI_ New token URI
      */
     function updateTokenURI(uint256 agentId, string calldata tokenURI_) external {
-        require(_isAuthorized(ownerOf(agentId), msg.sender, agentId), "Not authorized");
+        require(
+            ownerOf(agentId) == msg.sender || 
+            getApproved(agentId) == msg.sender || 
+            isApprovedForAll(ownerOf(agentId), msg.sender), 
+            "Not authorized"
+        );
         require(bytes(tokenURI_).length > 0, "TokenURI cannot be empty");
         
         _setTokenURI(agentId, tokenURI_);
