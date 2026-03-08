@@ -4,7 +4,7 @@ import { Logger } from '../utils/logger';
 import { AgentMetadata, AgentInfo, ContractConfig } from '../types';
 
 export abstract class BaseAgent {
-  protected blockchain: BlockchainClient;
+  public blockchain: BlockchainClient;
   protected logger: Logger;
   protected contracts: ContractConfig;
   public agentInfo?: AgentInfo;
@@ -62,12 +62,7 @@ export abstract class BaseAgent {
   }
 
   protected async getNextAgentId(): Promise<number> {
-    const identityContract = this.blockchain.getContract(
-      this.contracts.identityRegistry,
-      BlockchainClient.getContractABI('IdentityRegistry')
-    );
-
-    // This would need to be implemented in the contract
+    // In production, this would query the identity registry contract
     // For now, we'll use a simple counter approach
     return Date.now() % 10000; // Simplified for demo
   }

@@ -36,7 +36,7 @@ class ERC8004Demo {
       name: process.env.NETWORK_NAME || 'localhost',
       rpcUrl: process.env.RPC_URL || 'http://localhost:8545',
       chainId: parseInt(process.env.CHAIN_ID || '31337'),
-      blockExplorer: process.env.BLOCK_EXPLORER
+      blockExplorer: process.env.BLOCK_EXPLORER || ''
     };
 
     const contracts: ContractConfig = {
@@ -214,7 +214,7 @@ class ERC8004Demo {
       await this.initialize();
       await this.registerAgents();
       
-      const selectedAgentId = await this.performServiceDiscovery();
+      await this.performServiceDiscovery();
       const { request, analysis } = await this.requestAndPerformAnalysis();
       const validationResult = await this.performValidation(request, analysis);
       const finalScore = await this.submitFeedbackAndUpdateReputation(analysis, validationResult);

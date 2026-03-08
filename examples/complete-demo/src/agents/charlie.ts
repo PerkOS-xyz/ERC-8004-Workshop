@@ -1,5 +1,5 @@
 import { BaseAgent } from './base';
-import { AgentMetadata, MarketAnalysisRequest, FeedbackData } from '../types';
+import { AgentMetadata, MarketAnalysisRequest } from '../types';
 
 export class CharlieClient extends BaseAgent {
   getMetadata(): AgentMetadata {
@@ -192,29 +192,6 @@ export class CharlieClient extends BaseAgent {
   ): Promise<void> {
     this.logger.agent('Charlie', `Rating Agent ${agentId}: ${evaluation.score}/100`);
     
-    const feedbackData: FeedbackData = {
-      agentId,
-      score: evaluation.score,
-      tags: evaluation.tags,
-      reportUri: '', // Will be generated
-      client: this.blockchain.getAddress(),
-      timestamp: Date.now()
-    };
-
-    // Create detailed feedback report
-    const feedbackReport = {
-      ...feedbackData,
-      reasoning: evaluation.reasoning,
-      clientAgent: this.agentInfo?.metadata.name || 'Charlie Client',
-      interaction: {
-        serviceType: 'market-analysis',
-        requestTimestamp: feedbackData.timestamp - 30000, // 30 seconds ago
-        responseTime: 8.5, // seconds
-        satisfactionLevel: this.getDescriptiveSatisfaction(evaluation.score)
-      },
-      recommendations: this.generateRecommendations(evaluation.score, evaluation.tags)
-    };
-
     try {
       // Submit feedback using the base class method
       await this.submitFeedbackAsClient(agentId, evaluation.score, evaluation.tags, authorization);
@@ -225,41 +202,6 @@ export class CharlieClient extends BaseAgent {
       this.logger.warn('Feedback submission simulated due to contract limitations');
       this.logger.info('In production, this would update the agent\'s on-chain reputation');
     }
-  }
-
-  private getDescriptiveSatisfaction(score: number): string {
-    if (score >= 90) return 'Extremely satisfied';
-    if (score >= 80) return 'Very satisfied';
-    if (score >= 70) return 'Satisfied';
-    if (score >= 60) return 'Somewhat satisfied';
-    if (score >= 50) return 'Neutral';
-    if (score >= 40) return 'Somewhat dissatisfied';
-    if (score >= 30) return 'Dissatisfied';
-    return 'Very dissatisfied';
-  }
-
-  private generateRecommendations(score: number, tags: string[]): string[] {
-    const recommendations: string[] = [];
-
-    if (score >= 85) {
-      recommendations.push('Excellent service, would use again');
-      recommendations.push('Recommend to other clients');
-    } else if (score >= 70) {
-      recommendations.push('Good service with room for improvement');
-      if (tags.includes('fast')) {
-        recommendations.push('Maintain fast response times');
-      }
-    } else {
-      recommendations.push('Needs improvement in analysis quality');
-      if (tags.includes('overconfident')) {
-        recommendations.push('Work on confidence calibration');
-      }
-      if (!tags.includes('detailed')) {
-        recommendations.push('Provide more detailed reasoning');
-      }
-    }
-
-    return recommendations;
   }
 
   async trackInteractionHistory(): Promise<Array<{

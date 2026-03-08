@@ -6,7 +6,7 @@ export class BlockchainClient {
   private wallet: ethers.Wallet;
   
   constructor(
-    private config: NetworkConfig,
+    config: NetworkConfig,
     privateKey: string
   ) {
     this.provider = new ethers.JsonRpcProvider(config.rpcUrl);
