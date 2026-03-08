@@ -13,8 +13,9 @@ In this tutorial, you'll create a simple but complete ERC-8004 agent system:
 ## 📋 Prerequisites
 
 - Basic knowledge of Solidity
-- Familiarity with Python or JavaScript
+- Familiarity with TypeScript/JavaScript
 - Understanding of blockchain concepts
+- Node.js 18+ installed
 
 ## 🚀 Step 1: Environment Setup
 
@@ -31,8 +32,9 @@ npm install
 curl -L https://foundry.paradigm.xyz | bash
 foundryup
 
-# Install Python dependencies
-pip install -r requirements.txt
+# Install TypeScript dependencies
+cd typescript
+npm install
 ```
 
 ### Start Local Blockchain
@@ -88,30 +90,40 @@ Create an agent metadata file:
 ```
 
 ### Register Agent
-```python
-from web3 import Web3
-from eth_account import Account
+```typescript
+import { BlockchainClient } from './blockchain-client';
+import { IDENTITY_REGISTRY_ABI } from './contracts';
 
-# Connect to local blockchain
-w3 = Web3(Web3.HTTPProvider('http://localhost:8545'))
+// Initialize blockchain client
+const blockchain = new BlockchainClient(
+  'http://localhost:8545', 
+  'YOUR_PRIVATE_KEY_PLACEHOLDER'
+);
 
-# Load your private key
-account = Account.from_key('0xac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80')
+// Create agent metadata
+const metadata = {
+  name: 'My First Agent',
+  description: 'Tutorial agent for ERC-8004',
+  type: 'tutorial',
+  capabilities: ['greeting', 'echo'],
+  endpoint: 'https://myagent.example.com/webhook'
+};
 
-# Get contract instance
-identity_registry = w3.eth.contract(
-    address='0x5FbDB...', # Your deployed contract address
-    abi=identity_registry_abi
-)
+// Get contract instance
+const identityRegistry = blockchain.getContract(
+  'CONTRACT_ADDRESS_PLACEHOLDER',
+  IDENTITY_REGISTRY_ABI
+);
 
-# Register agent
-tx_hash = identity_registry.functions.register(
-    "https://myagent.example.com/metadata.json"
-).transact({'from': account.address})
+// Register agent
+const metadataUri = `data:application/json;base64,${Buffer.from(JSON.stringify(metadata)).toString('base64')}`;
+const receipt = await blockchain.sendTransaction(
+  identityRegistry,
+  'register', 
+  [metadataUri]
+);
 
-# Wait for confirmation
-receipt = w3.eth.wait_for_transaction_receipt(tx_hash)
-print(f"Agent registered! Transaction: {receipt.transactionHash.hex()}")
+console.log(`Agent registered! Transaction: ${receipt.hash}`);
 ```
 
 ## ⭐ Step 4: Implement Reputation System
@@ -138,32 +150,40 @@ response = {
 ### Submit Feedback
 After receiving service, submit feedback:
 
-```python
-# Agent provides signed authorization for feedback
-def create_feedback_authorization(agent_id, client_address, timestamp):
-    # Create message hash
-    message = f"feedback_{agent_id}_{client_address}_{timestamp}"
-    message_hash = w3.keccak(text=message)
-    
-    # Sign with agent's private key
-    signature = account.signHash(message_hash)
-    return signature.signature
+```typescript
+import { ethers } from 'ethers';
+import { REPUTATION_REGISTRY_ABI } from './contracts';
 
-# Submit feedback to reputation registry
-feedback_score = 85  # 0-100 rating
-feedback_tags = ["helpful", "fast"]
-authorization = create_feedback_authorization(1, account.address, int(time.time()))
+// Create feedback authorization (agent would provide this)
+async function createFeedbackAuthorization(agentId: number, clientAddress: string): Promise<string> {
+  const timestamp = Math.floor(Date.now() / 1000);
+  const message = `feedback_${agentId}_${clientAddress}_${timestamp}`;
+  return await blockchain.signMessage(message);
+}
 
-tx_hash = reputation_registry.functions.submitFeedback(
-    1,  # agent_id
-    feedback_score,
-    feedback_tags,
-    "https://feedback-report.example.com/report1.json",
-    w3.keccak(text="feedback report content"),  # report hash
-    authorization
-).transact({'from': account.address})
+// Prepare feedback data
+const feedbackScore = 85;  // 0-100 rating
+const feedbackTags = ["helpful", "fast", "accurate"];
+const authorization = await createFeedbackAuthorization(1, blockchain.getAddress());
 
-print(f"Feedback submitted! Score: {feedback_score}/100")
+// Create feedback report
+const report = { score: feedbackScore, tags: feedbackTags, timestamp: Date.now() };
+const reportUri = `data:application/json;base64,${Buffer.from(JSON.stringify(report)).toString('base64')}`;
+const reportHash = ethers.keccak256(ethers.toUtf8Bytes(JSON.stringify(report)));
+
+// Submit to reputation registry
+const reputationRegistry = blockchain.getContract(
+  'CONTRACT_ADDRESS_PLACEHOLDER',
+  REPUTATION_REGISTRY_ABI
+);
+
+const receipt = await blockchain.sendTransaction(
+  reputationRegistry,
+  'submitFeedback',
+  [1, feedbackScore, feedbackTags, reportUri, reportHash, authorization]
+);
+
+console.log(`Feedback submitted! Score: ${feedbackScore}/100`);
 ```
 
 ## ✅ Step 5: Add Validation
@@ -171,62 +191,84 @@ print(f"Feedback submitted! Score: {feedback_score}/100")
 ### Request Validation
 Ask for independent verification:
 
-```python
-import hashlib
+```typescript
+import { ethers } from 'ethers';
+import { VALIDATION_REGISTRY_ABI } from './contracts';
 
-# Create unique request hash
-request_data = json.dumps(request, sort_keys=True)
-request_hash = hashlib.sha256(request_data.encode()).digest()
+// Create unique request hash
+const requestData = JSON.stringify(request, Object.keys(request).sort());
+const requestHash = ethers.keccak256(ethers.toUtf8Bytes(requestData));
 
-# Request validation
-tx_hash = validation_registry.functions.requestValidation(
-    request_hash,
-    "manual-review",  # validation type
-    "https://validation-request.example.com/request1.json"
-).transact({'from': account.address})
+// Prepare request metadata
+const requestUri = `data:application/json;base64,${Buffer.from(JSON.stringify({
+  originalRequest: request,
+  timestamp: Date.now(),
+  requester: blockchain.getAddress()
+})).toString('base64')}`;
 
-print("Validation requested!")
+// Request validation
+const validationRegistry = blockchain.getContract(
+  'CONTRACT_ADDRESS_PLACEHOLDER',
+  VALIDATION_REGISTRY_ABI
+);
+
+const receipt = await blockchain.sendTransaction(
+  validationRegistry,
+  'requestValidation',
+  [requestHash, "re-execution", requestUri]
+);
+
+console.log("Validation requested!");
 ```
 
 ### Submit Validation Result
 A validator reviews and provides their assessment:
 
-```python
-# Validator submits their result
-validation_confidence = 90  # 0-100 confidence score
-validation_report_hash = hashlib.sha256(b"validation report content").digest()
+```typescript
+// Validator creates validation report
+const validationResult = {
+  confidence: 90,
+  methodology: "re-execution",
+  findings: "Analysis verified through independent execution",
+  validator: "tutorial-validator",
+  timestamp: Date.now()
+};
 
-tx_hash = validation_registry.functions.submitValidation(
-    request_hash,
-    validation_confidence,
-    "https://validation-response.example.com/response1.json",
-    validation_report_hash
-).transact({'from': validator_account.address})
+// Create validation response
+const responseUri = `data:application/json;base64,${Buffer.from(JSON.stringify(validationResult)).toString('base64')}`;
+const responseHash = ethers.keccak256(ethers.toUtf8Bytes(JSON.stringify(validationResult)));
 
-print(f"Validation submitted! Confidence: {validation_confidence}/100")
+// Submit validation
+const receipt = await blockchain.sendTransaction(
+  validationRegistry,
+  'submitValidation',
+  [requestHash, validationResult.confidence, responseUri, responseHash]
+);
+
+console.log(`Validation submitted! Confidence: ${validationResult.confidence}/100`);
 ```
 
 ## 📊 Step 6: Query Results
 
 ### Check Agent Reputation
-```python
-# Get agent's current reputation
-avg_score = reputation_registry.functions.getAverageScore(1).call()
-feedback_count = reputation_registry.functions.getFeedbackCount(1).call()
+```typescript
+// Get agent's current reputation
+const avgScore = await blockchain.callFunction(reputationRegistry, 'getAverageScore', [1]);
+const feedbackCount = await blockchain.callFunction(reputationRegistry, 'getFeedbackCount', [1]);
 
-print(f"Agent reputation: {avg_score}/100 ({feedback_count} reviews)")
+console.log(`Agent reputation: ${avgScore}/100 (${feedbackCount} reviews)`);
 ```
 
 ### View Validation History
-```python
-# Get validation responses
-validations = validation_registry.functions.getValidationResponses(request_hash).call()
+```typescript
+// Get consensus result for a validation request
+const consensus = await blockchain.callFunction(
+  validationRegistry, 
+  'getConsensusResult', 
+  [requestHash]
+);
 
-for validation in validations:
-    print(f"Validator: {validation[1]}")
-    print(f"Confidence: {validation[2]}/100")
-    print(f"Timestamp: {validation[5]}")
-    print("---")
+console.log(`Validation consensus: ${consensus}/100`);
 ```
 
 ## 🧪 Step 7: Test Complete Flow
@@ -234,7 +276,8 @@ for validation in validations:
 Run the complete test script:
 
 ```bash
-python test_complete_flow.py
+cd typescript
+npm run test-flow
 ```
 
 **Expected Output:**
@@ -284,17 +327,19 @@ step-by-step/
 │   │   └── ValidationRegistry.sol
 │   └── script/
 │       └── DeployStep1.s.sol    # Deployment script
-├── python/
-│   ├── agent_example.py         # Basic agent implementation
-│   ├── register_agent.py        # Registration helper
-│   ├── submit_feedback.py       # Feedback helper
-│   ├── request_validation.py    # Validation helper
-│   └── test_complete_flow.py    # Complete test
-├── javascript/
-│   ├── agent-client.js          # JS version of agent client
-│   ├── web3-helpers.js          # Web3 utilities
-│   └── frontend-example.html    # Simple web interface
-└── requirements.txt             # Python dependencies
+├── typescript/                  # Main tutorial implementation
+│   ├── src/
+│   │   ├── register-agent.ts    # Agent registration
+│   │   ├── submit-feedback.ts   # Feedback submission
+│   │   ├── test-complete-flow.ts # Complete workflow test
+│   │   ├── blockchain-client.ts # Web3 utilities
+│   │   ├── contracts.ts         # Contract ABIs
+│   │   └── config.ts           # Configuration loader
+│   ├── package.json            # Dependencies
+│   ├── tsconfig.json           # TypeScript config
+│   └── .env.example            # Environment template
+└── javascript/
+    └── agent-client.js          # Basic JS example
 ```
 
 ## 🤔 Common Issues

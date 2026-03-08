@@ -12,7 +12,7 @@ This repository contains practical examples and tutorials for **ERC-8004: Trustl
 - The Agentic Economy vision
 
 ### 2. [Live Demo](./examples/complete-demo/) (15 min)
-- Multi-agent interaction
+- Multi-agent interaction in TypeScript
 - Alice (Market Analysis) + Bob (Validation) + Charlie (Feedback)
 - Real blockchain integration
 
@@ -22,6 +22,7 @@ This repository contains practical examples and tutorials for **ERC-8004: Trustl
 - Validation Registry (Independent verification)
 
 ### 4. [Hands-on Coding](./examples/step-by-step/) (20 min)
+- TypeScript implementation tutorial
 - Deploy your first agent
 - Register on Identity Registry
 - Create feedback loop
@@ -31,16 +32,16 @@ This repository contains practical examples and tutorials for **ERC-8004: Trustl
 ## 🛠️ Examples
 
 ### [Complete Demo](./examples/complete-demo/)
-Ready-to-run example with 3 AI agents working together using CrewAI.
+Ready-to-run TypeScript example with 3 AI agents working together.
 
 ### [Step-by-Step Tutorial](./examples/step-by-step/)
-Build your own ERC-8004 agent from scratch with detailed explanations.
+Build your own ERC-8004 agent from scratch with TypeScript.
 
 ### [Smart Contracts](./examples/contracts/)
-Solidity examples for the three registries with tests.
+Solidity examples for the three registries with Foundry tests.
 
 ### [JavaScript Integration](./examples/javascript/)
-Frontend and backend integration examples.
+Basic JavaScript integration examples.
 
 ### [TEE Integration](./examples/tee-agents/)
 Trusted Execution Environment examples with Oasis ROFL.
@@ -51,16 +52,15 @@ Trusted Execution Environment examples with Oasis ROFL.
 # Clone and setup
 git clone <repository-url>
 cd ERC-8004-Workshop
-npm install
 
 # Run complete demo
 cd examples/complete-demo
 ./setup.sh
-python demo.py
+npm run demo
 
 # Deploy contracts locally
-cd examples/contracts
-forge install
+cd ../contracts
+./install-deps.sh
 forge build
 forge test
 ```
@@ -68,7 +68,7 @@ forge test
 ## 📋 Prerequisites
 
 - **Node.js** 18+ with npm
-- **Python** 3.8+ with pip  
+- **TypeScript** knowledge helpful
 - **Foundry** (for smart contracts)
 - **Git** and **curl**
 

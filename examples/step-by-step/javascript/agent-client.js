@@ -1,4 +1,5 @@
 // Basic ERC-8004 agent client in JavaScript
+// 💡 For production use, consider the TypeScript version instead
 const { ethers } = require('ethers');
 
 class ERC8004AgentClient {

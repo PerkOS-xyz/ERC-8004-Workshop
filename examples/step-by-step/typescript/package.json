@@ -1,0 +1,33 @@
+{
+  "name": "erc-8004-step-by-step",
+  "version": "1.0.0",
+  "description": "Step-by-step ERC-8004 implementation tutorial",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "tsc",
+    "dev": "ts-node src/index.ts",
+    "register": "ts-node src/register-agent.ts",
+    "feedback": "ts-node src/submit-feedback.ts", 
+    "validation": "ts-node src/request-validation.ts",
+    "test-flow": "ts-node src/test-complete-flow.ts",
+    "clean": "rm -rf dist"
+  },
+  "dependencies": {
+    "ethers": "^6.13.4",
+    "dotenv": "^16.4.7",
+    "chalk": "^4.1.2"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.2",
+    "typescript": "^5.7.2",
+    "ts-node": "^10.9.2"
+  },
+  "keywords": [
+    "erc-8004",
+    "ethereum",
+    "typescript",
+    "tutorial"
+  ],
+  "author": "PerkOS Team",
+  "license": "MIT"
+}

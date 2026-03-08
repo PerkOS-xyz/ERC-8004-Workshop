@@ -1,8 +1,11 @@
 # JavaScript Integration Examples
 
+> **💡 Recommendation**: For new projects, use the [TypeScript examples](../complete-demo/) instead. 
+> This directory contains basic JavaScript examples for reference.
+
 ## Frontend Integration
 
-Examples for integrating ERC-8004 in web applications.
+Basic examples for integrating ERC-8004 in web applications.
 
 ### Web3 Client
 ```javascript
