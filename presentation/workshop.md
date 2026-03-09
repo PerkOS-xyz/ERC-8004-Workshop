@@ -87,6 +87,7 @@ style: |
   table { border-collapse: collapse; font-size: 0.85em; }
   table th { background: #45193c; color: #fab46c; padding: 6px 12px; border: 1px solid #8e2051; }
   table td { background: #1d1029; color: #f0e6f6; padding: 6px 12px; border: 1px solid #45193c; }
+  table td a { color: #ef5b57; text-decoration: underline; font-weight: bold; }
 ---
 
 <!-- _class: title -->
