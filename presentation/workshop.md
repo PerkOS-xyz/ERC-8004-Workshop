@@ -732,10 +732,24 @@ To recap: ERC-8004 gives agents trustless identity and reputation. x402 gives th
 
 ---
 
+<!--
+_class: qr-slide
+-->
+
+<style scoped>
+.qr-row { display: flex; justify-content: center; gap: 80px; margin-top: 60px; }
+.qr-item { text-align: center; }
+.qr-item img { width: 140px; height: 140px; }
+.qr-item p { margin-top: 12px; font-weight: bold; font-size: 0.7em; }
+</style>
+
 # Like Follow Us
 
-![w:130](qr-perkos.png) &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ![w:130](qr-twitter.png) &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ![w:130](qr-workshop.png) &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ![w:130](qr-cli.png)
-
-**PerkOS.xyz** &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; **@perk_os** &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; **Workshop Repo** &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; **Workshop CLI**
+<div class="qr-row">
+<div class="qr-item"><img src="qr-perkos.png"><p>PerkOS.xyz</p></div>
+<div class="qr-item"><img src="qr-twitter.png"><p>@perk_os</p></div>
+<div class="qr-item"><img src="qr-workshop.png"><p>Workshop Repo</p></div>
+<div class="qr-item"><img src="qr-cli.png"><p>Workshop CLI</p></div>
+</div>
 
 ---
