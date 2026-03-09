@@ -760,6 +760,14 @@ To recap: ERC-8004 gives agents trustless identity and reputation. x402 gives th
 
 </div>
 
+<div style="text-align: center;">
+
+![w:180](qr-workshop-cli.png)
+
+**Workshop CLI**
+
+</div>
+
 </div>
 
 ---
