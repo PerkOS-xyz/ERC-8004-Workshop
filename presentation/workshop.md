@@ -93,6 +93,8 @@ style: |
 
 ![w:120](julio-avatar.png)
 
+**Julio M Cruz** | Founder PerkOS.xyz
+
 # ERC-8004
 
 ## The Trustless Agent Economy
