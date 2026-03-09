@@ -468,13 +468,13 @@ npm install
 
 | # | Topic | Details |
 |---|-------|---------|
-| 1 | [Discovery](https://github.com/PerkOS-xyz/perkos-workshop-cli/blob/main/exercises/01-discovery.md) | 5 standard endpoints |
-| 2 | [Identity](https://github.com/PerkOS-xyz/perkos-workshop-cli/blob/main/exercises/02-identity.md) | On-chain registry lookup |
-| 3 | [Reputation](https://github.com/PerkOS-xyz/perkos-workshop-cli/blob/main/exercises/03-reputation.md) | Score & feedback query |
-| 4 | [Onboarding](https://github.com/PerkOS-xyz/perkos-workshop-cli/blob/main/exercises/04-onboarding.md) | Agent registration package |
-| 5 | [x402 Payment](https://github.com/PerkOS-xyz/perkos-workshop-cli/blob/main/exercises/05-x402-payment.md) | Payment lifecycle |
-| 6 | [Full Flow](https://github.com/PerkOS-xyz/perkos-workshop-cli/blob/main/exercises/06-full-flow.md) | End-to-end integration |
-| 7 | [Live Registration](https://github.com/PerkOS-xyz/perkos-workshop-cli/blob/main/exercises/07-live-registration.md) | Real on-chain tx ⛓️ |
+| 1 | [Discovery](https://github.com/PerkOS-xyz/ERC-8004-Workshop/blob/master/exercises/01-discovery.md) | 5 standard endpoints |
+| 2 | [Identity](https://github.com/PerkOS-xyz/ERC-8004-Workshop/blob/master/exercises/02-identity.md) | On-chain registry lookup |
+| 3 | [Reputation](https://github.com/PerkOS-xyz/ERC-8004-Workshop/blob/master/exercises/03-reputation.md) | Score & feedback query |
+| 4 | [Onboarding](https://github.com/PerkOS-xyz/ERC-8004-Workshop/blob/master/exercises/04-onboarding.md) | Agent registration package |
+| 5 | [x402 Payment](https://github.com/PerkOS-xyz/ERC-8004-Workshop/blob/master/exercises/05-x402-payment.md) | Payment lifecycle |
+| 6 | [Full Flow](https://github.com/PerkOS-xyz/ERC-8004-Workshop/blob/master/exercises/06-full-flow.md) | End-to-end integration |
+| 7 | [Live Registration](https://github.com/PerkOS-xyz/ERC-8004-Workshop/blob/master/exercises/07-live-registration.md) | Real on-chain tx ⛓️ |
 
 </div>
 </div>
