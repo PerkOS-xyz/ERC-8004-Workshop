@@ -734,40 +734,8 @@ To recap: ERC-8004 gives agents trustless identity and reputation. x402 gives th
 
 # Like Follow Us
 
-<div style="display: flex; justify-content: space-around; align-items: center; margin-top: 20px;">
-
-<div style="text-align: center;">
-
-![w:180](qr-perkos.png)
-
-**PerkOS.xyz**
-
-</div>
-
-<div style="text-align: center;">
-
-![w:180](qr-twitter.png)
-
-**@perk_os**
-
-</div>
-
-<div style="text-align: center;">
-
-![w:180](qr-workshop.png)
-
-**Workshop Repo**
-
-</div>
-
-<div style="text-align: center;">
-
-![w:180](qr-workshop-cli.png)
-
-**Workshop CLI**
-
-</div>
-
-</div>
+| ![w:150](qr-perkos.png) | ![w:150](qr-twitter.png) | ![w:150](qr-workshop.png) | ![w:150](qr-workshop-cli.png) |
+|:---:|:---:|:---:|:---:|
+| **PerkOS.xyz** | **@perk_os** | **Workshop Repo** | **Workshop CLI** |
 
 ---
