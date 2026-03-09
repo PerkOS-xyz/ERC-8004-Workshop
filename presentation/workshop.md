@@ -746,10 +746,10 @@ _class: qr-slide
 # Like Follow Us
 
 <div class="qr-row">
-<div class="qr-item"><img src="qr-perkos.png"><p>PerkOS.xyz</p></div>
-<div class="qr-item"><img src="qr-twitter.png"><p>@perk_os</p></div>
-<div class="qr-item"><img src="qr-workshop.png"><p>Workshop Repo</p></div>
-<div class="qr-item"><img src="qr-cli.png"><p>Workshop CLI</p></div>
+<div class="qr-item"><a href="https://perkos.xyz" target="_blank"><img src="qr-perkos.png"></a><p><a href="https://perkos.xyz" target="_blank">PerkOS.xyz</a></p></div>
+<div class="qr-item"><a href="https://x.com/perk_os" target="_blank"><img src="qr-twitter.png"></a><p><a href="https://x.com/perk_os" target="_blank">@perk_os</a></p></div>
+<div class="qr-item"><a href="https://github.com/PerkOS-xyz/ERC-8004-Workshop" target="_blank"><img src="qr-workshop.png"></a><p><a href="https://github.com/PerkOS-xyz/ERC-8004-Workshop" target="_blank">Workshop Repo</a></p></div>
+<div class="qr-item"><a href="https://github.com/PerkOS-xyz/perkos-workshop-cli" target="_blank"><img src="qr-cli.png"></a><p><a href="https://github.com/PerkOS-xyz/perkos-workshop-cli" target="_blank">Workshop CLI</a></p></div>
 </div>
 
 ---
