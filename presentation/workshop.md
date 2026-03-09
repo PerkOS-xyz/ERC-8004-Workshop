@@ -297,7 +297,7 @@ Let me walk you through the discovery endpoints. The health check confirms Stack
 ```bash
 curl "https://stack.perkos.xyz/api/erc8004/
   identity?address=0x3f0D...46C
-  &network=celo"
+  &network=base"
 ```
 
 Returns: registry address, agent NFT name, symbol, version, ERC-8004 spec.
@@ -309,7 +309,7 @@ Returns: registry address, agent NFT name, symbol, version, ERC-8004 spec.
 
 ```bash
 curl "https://stack.perkos.xyz/api/erc8004/
-  reputation?agentId=1&network=celo"
+  reputation?agentId=1&network=base"
 ```
 
 Returns: score values, tag categories (`fx-trade`/`buy`), client addresses, revocation status. **Signed int128** with configurable decimals.
@@ -330,7 +330,7 @@ Identity lookup returns the registry contract info for any network. The identity
 ```bash
 curl -X POST https://stack.perkos.xyz/api/v2/agents/onboard \
   -H "Content-Type: application/json" \
-  -d '{"network":"celo","name":"my-agent"}'
+  -d '{"network":"base","name":"my-agent"}'
 ```
 
 ## Response: Complete Onboarding Package
@@ -507,7 +507,7 @@ Run the first exercise and you'll see five discovery endpoints in action. The ke
 ```bash
 npx tsx src/02-identity.ts
 # Or with custom address:
-npx tsx src/02-identity.ts 0xYOUR_ADDRESS celo
+npx tsx src/02-identity.ts 0xYOUR_ADDRESS base
 ```
 
 Returns the Identity Registry contract info for a given network. The registry is an ERC-721 -- each agent is an NFT with a `tokenURI` pointing to its agent card.
@@ -517,7 +517,7 @@ Returns the Identity Registry contract info for a given network. The registry is
 ```bash
 npx tsx src/03-reputation.ts
 # Or with custom agent ID:
-npx tsx src/03-reputation.ts 1 celo
+npx tsx src/03-reputation.ts 1 base
 ```
 
 Returns aggregated feedback: score summary, individual feedback entries with tags (`fx-trade`/`buy`), client addresses, and revocation status.

@@ -171,3 +171,6 @@ temp/
 presentation/*.html
 presentation/*.pdf
 **/package-lock.json
+
+# Local Netlify folder
+.netlify

@@ -1,6 +1,6 @@
 # Stack API Examples — ERC-8004 Workshop
 
-These examples interact with [PerkOS Stack](https://stack.perkos.xyz), a production middleware that implements the ERC-8004 Agent Identity standard and x402 payment protocol on Celo.
+These examples interact with [PerkOS Stack](https://stack.perkos.xyz), a production middleware that implements the ERC-8004 Agent Identity standard and x402 payment protocol on Base.
 
 Instead of calling smart contracts directly, these examples use Stack's REST API via `fetch()`. This is the recommended path for workshop participants getting started with ERC-8004.
 
@@ -21,7 +21,7 @@ Each example is standalone:
 
 ```bash
 npx tsx src/01-discover.ts    # Discover Stack capabilities
-npx tsx src/02-identity.ts    # Look up agent identity on Celo
+npx tsx src/02-identity.ts    # Look up agent identity on Base
 npx tsx src/03-reputation.ts  # Query reputation data
 npx tsx src/04-onboard.ts     # Onboard a new agent
 npx tsx src/05-x402-flow.ts   # x402 payment flow
