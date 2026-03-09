@@ -93,7 +93,7 @@ style: |
 
 ![w:120](julio-avatar.png)
 
-**Julio M Cruz** | Founder PerkOS.xyz
+**Julio M Cruz** | Founder PerkOS.xyz | [GitHub](https://github.com/JulioMCruz)
 
 # ERC-8004
 
