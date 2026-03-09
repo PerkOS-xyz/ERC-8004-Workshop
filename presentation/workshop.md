@@ -440,11 +440,14 @@ Now let's get hands-on. We have six exercises that walk through the complete Sta
 
 # Workshop Setup
 
+<div class="cols">
+<div class="col">
+
 ## Prerequisites
 
 - Node.js 18+ and npm
 - A terminal
-- No wallet or private key needed for read operations
+- No wallet needed for reads
 
 ## Getting Started
 
@@ -453,20 +456,24 @@ cd examples/stack-api
 npm install
 ```
 
-## Project Structure
+</div>
+<div class="col">
 
-```
-examples/stack-api/src/
-  config.ts          # Base URL, helper functions
-  01-discover.ts     # Discovery endpoints
-  02-identity.ts     # Identity registry lookup
-  03-reputation.ts   # Reputation query
-  04-onboard.ts      # Agent registration flow
-  05-x402-flow.ts    # x402 payment lifecycle
-  06-full-flow.ts    # End-to-end integration
-```
+## 6 Exercises
 
-All examples use `fetch()` against `https://stack.perkos.xyz` -- no SDK required.
+| # | File | Topic |
+|---|------|-------|
+| 1 | `01-discover.ts` | Discovery endpoints |
+| 2 | `02-identity.ts` | Identity registry |
+| 3 | `03-reputation.ts` | Reputation query |
+| 4 | `04-onboard.ts` | Agent registration |
+| 5 | `05-x402-flow.ts` | Payment lifecycle |
+| 6 | `06-full-flow.ts` | End-to-end |
+
+</div>
+</div>
+
+All examples use `fetch()` against `stack.perkos.xyz` -- no SDK required.
 
 <!--
 Setup is simple: Node 18 or higher, npm, and a terminal. No wallet needed for read operations. Just cd into examples/stack-api and run npm install. All six examples are standalone TypeScript files that use native fetch against the production Stack API. No SDK, no dependencies beyond chalk for colored output.
@@ -476,23 +483,30 @@ Setup is simple: Node 18 or higher, npm, and a terminal. No wallet needed for re
 
 # Exercise 1: Discovery
 
-## Run It
-
 ```bash
 npx tsx src/01-discover.ts
 ```
 
-## What It Does
+<div class="cols">
+<div class="col">
 
-1. **Health check** -- `/api/health` confirms Stack is online
-2. **Agent card** -- `/.well-known/agent-card.json` returns capabilities, payment methods, supported networks
-3. **ERC-8004 descriptor** -- `/.well-known/erc-8004.json` returns registry addresses, trust config, reputation data
-4. **x402 discovery** -- `/.well-known/x402-discovery.json` returns facilitator info, endpoints, SLA guarantees
-5. **LLM instructions** -- `/api/llms.txt` returns plain-text agent onboarding guide
+## 5 Endpoints Queried
+
+- `/api/health` -- Stack status
+- `/.well-known/agent-card.json` -- capabilities
+- `/.well-known/erc-8004.json` -- registries
+- `/.well-known/x402-discovery.json` -- payments
+- `/api/llms.txt` -- LLM instructions
+
+</div>
+<div class="col">
 
 ## Key Takeaway
 
-A single domain exposes the full agent profile. Any agent (or human) can discover capabilities, trust scores, and payment terms through standard HTTP requests.
+A single domain exposes the **full agent profile**. Any agent can discover capabilities, trust scores, and payment terms via standard HTTP.
+
+</div>
+</div>
 
 <!--
 Run the first exercise and you'll see five discovery endpoints in action. The key takeaway here is that a single domain exposes the full agent profile. Any agent or human can discover capabilities, trust scores, and payment terms through standard HTTP requests. This is the foundation of the machine economy -- discoverability without intermediaries.
@@ -502,30 +516,37 @@ Run the first exercise and you'll see five discovery endpoints in action. The ke
 
 # Exercise 2-3: Identity and Reputation
 
+<div class="cols">
+<div class="col">
+
 ## Identity Lookup
 
 ```bash
 npx tsx src/02-identity.ts
-# Or with custom address:
-npx tsx src/02-identity.ts 0xYOUR_ADDRESS base
 ```
 
-Returns the Identity Registry contract info for a given network. The registry is an ERC-721 -- each agent is an NFT with a `tokenURI` pointing to its agent card.
+Returns registry info for a network. Each agent is an **ERC-721 NFT** with a `tokenURI` pointing to its agent card.
+
+## Contracts (CREATE2 -- same on all chains)
+
+- **Identity:** `0x8004A169...a432`
+- **Reputation:** `0x8004BAa1...9b63`
+
+</div>
+<div class="col">
 
 ## Reputation Query
 
 ```bash
 npx tsx src/03-reputation.ts
-# Or with custom agent ID:
-npx tsx src/03-reputation.ts 1 base
 ```
 
-Returns aggregated feedback: score summary, individual feedback entries with tags (`fx-trade`/`buy`), client addresses, and revocation status.
+Returns: score values, tags (`fx-trade`/`buy`), client addresses, revocation status.
 
-## Contract Addresses (Base)
+Scores use **signed int128** with configurable decimals -- supports positive and negative feedback.
 
-- **Identity Registry:** `0x8004A169FB4a3325136EB29fA0ceB6D2e539a432`
-- **Reputation Registry:** `0x8004BAa17C55a88189AE136b182e5fdA19dE9b63`
+</div>
+</div>
 
 <!--
 Exercises 2 and 3 query real on-chain data. The identity lookup shows you the registry contract on Base. The reputation query returns actual feedback for agent ID 1 -- you'll see a score of 85, tagged as an fx-trade buy operation. You can pass your own address or agent ID as arguments. Note the contract addresses are the same across all EVM chains -- they use CREATE2 deterministic deployment.
@@ -535,31 +556,36 @@ Exercises 2 and 3 query real on-chain data. The identity lookup shows you the re
 
 # Exercise 4: Agent Onboarding
 
-## Run It
-
 ```bash
 npx tsx src/04-onboard.ts
 ```
 
-## What Happens
+## Stack Returns a Complete Onboarding Package
 
-Stack returns a complete onboarding package:
+<div class="cols">
+<div class="col">
 
-1. **Registration transaction** -- contract address, function signature, ready to sign
-2. **x402 payment config** -- facilitator URL, pay-to address, supported schemes
-3. **ERC-8004 registry addresses** -- identity + reputation contracts for the chosen network
+1. **Registration tx** -- contract + function, ready to sign
+2. **x402 config** -- facilitator URL, pay-to address, schemes
+3. **Registry addresses** -- identity + reputation for the network
 
-## The Flow in Production
+</div>
+<div class="col">
 
-```
-Agent calls /api/v2/agents/onboard
-  --> Stack returns registration tx + x402 config
-    --> Agent signs tx with its wallet
-      --> Agent is now registered on-chain
-        --> Agent can receive x402 payments
-```
+## Production Flow
 
-No manual setup. No dashboard. Fully programmatic.
+<div class="diagram">
+<div class="box box-pink" style="width:90%"><small>Agent calls <code>/api/v2/agents/onboard</code></small></div>
+<div style="color:#eb1b69; margin:2px 0">↓</div>
+<div class="box box-orange" style="width:90%"><small>Signs tx with its wallet</small></div>
+<div style="color:#eb1b69; margin:2px 0">↓</div>
+<div class="box box-green" style="width:90%"><small>Registered on-chain + x402 ready</small></div>
+</div>
+
+</div>
+</div>
+
+No dashboard. No manual setup. **Fully programmatic.**
 
 <!--
 Exercise 4 shows agent onboarding. When you run this, Stack returns the complete registration package: the transaction to sign, x402 payment config, and registry addresses. In production, an agent would sign this transaction with its wallet and be registered on-chain in one step. This is how we make agent registration zero-friction -- one API call gets you everything.
@@ -569,27 +595,34 @@ Exercise 4 shows agent onboarding. When you run this, Stack returns the complete
 
 # Exercise 5: x402 Payment Lifecycle
 
-## Run It
-
 ```bash
 npx tsx src/05-x402-flow.ts
 ```
 
-## Steps Demonstrated
+<div class="cols">
+<div class="col">
 
-1. **Supported networks** -- lists all 38 network/scheme pairs
-2. **Health check** -- per-network RPC latency and block numbers
-3. **Verify** -- validates a payment proof (uses placeholder data in workshop)
-4. **Settle** -- executes settlement on-chain (uses placeholder data in workshop)
+## Steps
 
-## Payment Schemes
+1. **Supported** -- 38 network/scheme pairs
+2. **Health** -- per-network RPC latency
+3. **Verify** -- validate payment proof
+4. **Settle** -- execute on-chain transfer
 
-- **Exact** -- immediate USDC transfer, verified on-chain
-- **Deferred** -- escrow-based, batch settlement (Avalanche, Base)
+</div>
+<div class="col">
 
-## In Production
+## Two Schemes
 
-The server returns HTTP 402 with payment requirements. The client constructs a signed payment proof. Stack verifies and settles. The resource is unlocked.
+- **Exact** -- immediate USDC transfer
+- **Deferred** -- escrow, batch settlement
+
+## Production Flow
+
+Server returns **HTTP 402** → Client sends signed proof → Stack verifies + settles → Resource unlocked
+
+</div>
+</div>
 
 <!--
 Exercise 5 demonstrates the x402 payment lifecycle. You'll see the 38 supported network-scheme pairs, the health check with per-network RPC latency, and the verify and settle endpoints. In the workshop we use placeholder data since we're not executing real payments, but the flow is exactly what happens in production. Two schemes: Exact for immediate settlement, Deferred for batched escrow-based settlement.
