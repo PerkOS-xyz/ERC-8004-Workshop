@@ -64,7 +64,7 @@ La seguridad debe escalar con el riesgo. Una consulta simple no necesita el mism
 
 ## Slide 11: Workshop Practico
 
-Ahora vamos a la practica. Tenemos seis ejercicios que recorren el API completo de Stack. Clonen el repo y vamos a trabajar juntos. No se necesita wallet ni clave privada para las operaciones de lectura -- estamos consultando datos reales en Celo mainnet.
+Ahora vamos a la practica. Tenemos seis ejercicios que recorren el API completo de Stack. Clonen el repo y vamos a trabajar juntos. No se necesita wallet ni clave privada para las operaciones de lectura -- estamos consultando datos reales en Base mainnet.
 
 ---
 
@@ -82,7 +82,7 @@ Corran el primer ejercicio y veran cinco endpoints de descubrimiento en accion. 
 
 ## Slide 14: Ejercicios 2-3 — Identidad y Reputacion
 
-Los ejercicios 2 y 3 consultan datos reales on-chain. La consulta de identidad muestra el contrato de registro en Celo. La consulta de reputacion devuelve feedback real para el agente ID 1 -- veran un puntaje de 85, etiquetado como una operacion fx-trade buy. Pueden pasar su propia direccion o ID de agente como argumentos. Noten que las direcciones de contratos son las mismas en todas las cadenas EVM -- usan despliegue deterministico CREATE2.
+Los ejercicios 2 y 3 consultan datos reales on-chain. La consulta de identidad muestra el contrato de registro en Base. La consulta de reputacion devuelve feedback real para el agente ID 1 -- veran un puntaje de 85, etiquetado como una operacion fx-trade buy. Pueden pasar su propia direccion o ID de agente como argumentos. Noten que las direcciones de contratos son las mismas en todas las cadenas EVM -- usan despliegue deterministico CREATE2.
 
 ---
 

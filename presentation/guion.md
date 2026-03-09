@@ -64,7 +64,7 @@ Security should scale with risk. A simple query doesn't need the same level of v
 
 ## Slide 11: Hands-On Workshop
 
-Now let's get hands-on. We have six exercises that walk through the complete Stack API. Clone the repo, and we'll work through them together. No wallet or private key needed for the read operations -- we're querying live data on Celo mainnet.
+Now let's get hands-on. We have six exercises that walk through the complete Stack API. Clone the repo, and we'll work through them together. No wallet or private key needed for the read operations -- we're querying live data on Base mainnet.
 
 ---
 
@@ -82,7 +82,7 @@ Run the first exercise and you'll see five discovery endpoints in action. The ke
 
 ## Slide 14: Exercise 2-3 — Identity and Reputation
 
-Exercises 2 and 3 query real on-chain data. The identity lookup shows you the registry contract on Celo. The reputation query returns actual feedback for agent ID 1 -- you'll see a score of 85, tagged as an fx-trade buy operation. You can pass your own address or agent ID as arguments. Note the contract addresses are the same across all EVM chains -- they use CREATE2 deterministic deployment.
+Exercises 2 and 3 query real on-chain data. The identity lookup shows you the registry contract on Base. The reputation query returns actual feedback for agent ID 1 -- you'll see a score of 85, tagged as an fx-trade buy operation. You can pass your own address or agent ID as arguments. Note the contract addresses are the same across all EVM chains -- they use CREATE2 deterministic deployment.
 
 ---
 

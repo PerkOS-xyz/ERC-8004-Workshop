@@ -433,7 +433,7 @@ Clone the repo and follow along:
 `github.com/PerkOS-xyz/ERC-8004-Workshop`
 
 <!--
-Now let's get hands-on. We have six exercises that walk through the complete Stack API. Clone the repo, and we'll work through them together. No wallet or private key needed for the read operations -- we're querying live data on Celo mainnet.
+Now let's get hands-on. We have six exercises that walk through the complete Stack API. Clone the repo, and we'll work through them together. No wallet or private key needed for the read operations -- we're querying live data on Base mainnet.
 -->
 
 ---
@@ -522,13 +522,13 @@ npx tsx src/03-reputation.ts 1 base
 
 Returns aggregated feedback: score summary, individual feedback entries with tags (`fx-trade`/`buy`), client addresses, and revocation status.
 
-## Contract Addresses (Celo)
+## Contract Addresses (Base)
 
 - **Identity Registry:** `0x8004A169FB4a3325136EB29fA0ceB6D2e539a432`
 - **Reputation Registry:** `0x8004BAa17C55a88189AE136b182e5fdA19dE9b63`
 
 <!--
-Exercises 2 and 3 query real on-chain data. The identity lookup shows you the registry contract on Celo. The reputation query returns actual feedback for agent ID 1 -- you'll see a score of 85, tagged as an fx-trade buy operation. You can pass your own address or agent ID as arguments. Note the contract addresses are the same across all EVM chains -- they use CREATE2 deterministic deployment.
+Exercises 2 and 3 query real on-chain data. The identity lookup shows you the registry contract on Base. The reputation query returns actual feedback for agent ID 1 -- you'll see a score of 85, tagged as an fx-trade buy operation. You can pass your own address or agent ID as arguments. Note the contract addresses are the same across all EVM chains -- they use CREATE2 deterministic deployment.
 -->
 
 ---
