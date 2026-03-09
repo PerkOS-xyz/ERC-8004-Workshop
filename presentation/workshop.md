@@ -614,7 +614,7 @@ Discover -- Verify -- Pay -- Repeat
 
 ---
 
-# Connect With Us
+# Like Follow Us
 
 <div style="display: flex; justify-content: space-around; align-items: center; margin-top: 20px;">
 
