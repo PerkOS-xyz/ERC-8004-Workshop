@@ -676,22 +676,36 @@ This diagram shows how Stack fits in. Your agent or application makes HTTP reque
 
 # Key Contract Addresses
 
-## Mainnet Registries
+## CREATE2 -- Same Address on Every EVM Chain
 
-| Network | Identity Registry | Reputation Registry |
-|---------|------------------|-------------------|
-| Avalanche | `0x8004A169FB4a...` | `0x8004BAa17C5...` |
-| Celo | `0x8004A169FB4a...` | `0x8004BAa17C5...` |
-| Base | `0x8004A169FB4a...` | `0x8004BAa17C5...` |
-| Ethereum | `0x8004A169FB4a...` | `0x8004BAa17C5...` |
-| Polygon | `0x8004A169FB4a...` | `0x8004BAa17C5...` |
-| Arbitrum | `0x8004A169FB4a...` | `0x8004BAa17C5...` |
-| Optimism | `0x8004A169FB4a...` | `0x8004BAa17C5...` |
+<div class="cols">
+<div class="col">
 
-**Full Identity:** `0x8004A169FB4a3325136EB29fA0ceB6D2e539a432`
-**Full Reputation:** `0x8004BAa17C55a88189AE136b182e5fdA19dE9b63`
+### Identity Registry
 
-Same addresses across all mainnet EVM chains.
+```
+0x8004A169FB4a3325136EB29fA0ceB6D2e539a432
+```
+
+### Reputation Registry
+
+```
+0x8004BAa17C55a88189AE136b182e5fdA19dE9b63
+```
+
+</div>
+<div class="col">
+
+### Deployed On
+
+Avalanche, Base, Celo, Ethereum, Polygon, Arbitrum, Optimism + all testnets
+
+### Why Same Address?
+
+**CREATE2** deterministic deployment -- one address, every chain. Cross-chain agent interop is seamless.
+
+</div>
+</div>
 
 <!--
 Here are the contract addresses. Notice they are identical across all seven mainnet chains -- this is thanks to CREATE2 deterministic deployment. One address for Identity, one for Reputation, everywhere. This makes cross-chain agent interoperability straightforward: same agent ID, same contracts, same addresses, any chain.
