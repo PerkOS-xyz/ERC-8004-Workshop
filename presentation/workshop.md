@@ -662,13 +662,11 @@ The final exercise ties it all together. Discover, identity, reputation, onboard
 ## What Stack Abstracts
 
 - **Multi-chain routing** -- one API, 38 networks
-- **Contract ABI encoding** -- no ethers.js or viem needed for reads
-- **Discovery protocol** -- `.well-known` endpoints follow web standards
-- **x402 facilitation** -- verify and settle without running your own node
+- **ABI encoding** -- no ethers.js or viem for reads
+- **Discovery** -- `.well-known` web standards
+- **x402** -- verify and settle without your own node
 
-## For Advanced Users
-
-Direct contract interaction examples are available in `examples/direct-contract/`. These use ethers.js to call the ERC-8004 registries directly -- useful for custom integrations or when you need write operations without Stack as intermediary.
+Advanced: direct contract examples in `examples/direct-contract/`
 
 <!--
 This diagram shows how Stack fits in. Your agent or application makes HTTP requests to Stack, and Stack handles all the blockchain interaction: multi-chain routing across 38 networks, ABI encoding, discovery protocols following web standards, and x402 payment facilitation. For advanced users who want to interact with the contracts directly, we have separate examples using ethers.js in the direct-contract directory.
