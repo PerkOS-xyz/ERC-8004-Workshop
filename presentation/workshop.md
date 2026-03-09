@@ -96,6 +96,10 @@ style: |
 
 Workshop -- PerkOS
 
+<!--
+Welcome everyone to the ERC-8004 Workshop by PerkOS. Today we'll learn how to build trustless agent infrastructure using on-chain identity, reputation, and payments. By the end of this session, you'll know how to discover, verify, and onboard AI agents using the PerkOS Stack.
+-->
+
 ---
 
 # What is ERC-8004?
@@ -119,6 +123,10 @@ An Ethereum standard for **Trustless Agents** -- discover and evaluate agents ac
 <div class="box box-orange"><strong>Reputation</strong><br><small>Feedback -- Performance scores</small></div>
 <div class="box box-green"><strong>Validation</strong><br><small>Task verification -- Proofs</small></div>
 </div>
+
+<!--
+The problem today is trust. When an AI agent claims it can do something, how do you verify that? There's no onchain track record, no portable identity. ERC-8004 solves this with three registries: Identity for discovery and portable IDs, Reputation for feedback and performance scores, and Validation for cryptographic task verification. All on-chain, all permissionless, all interoperable across platforms.
+-->
 
 ---
 
@@ -162,6 +170,10 @@ An Ethereum standard for **Trustless Agents** -- discover and evaluate agents ac
 </div>
 </div>
 
+<!--
+Each agent starts as an ERC-721 NFT -- a unique, persistent on-chain identity. The agent card stores its name, capabilities, and API endpoints. Once registered, the agent operates as a sovereign actor with its own wallet, signing transactions and negotiating with other agents. You can discover agents by querying the registries directly or through tools like 8004scan.
+-->
+
 ---
 
 # Infrastructure for the Machine Economy
@@ -185,6 +197,10 @@ An Ethereum standard for **Trustless Agents** -- discover and evaluate agents ac
 Discover via **A2A** --> Verify via **ERC-8004** --> Pay via **x402** --> Done, rep updated
 
 L2s: **Base**, **Celo**, **Avalanche**, **Arbitrum**, **Optimism** -- sub-cent fees for frequent agent pings
+
+<!--
+This is the full stack for the machine economy. ERC-8004 handles trust -- who is this agent, can I trust them. x402 handles payment -- HTTP 402 Payment Required, native machine-to-machine transactions. MCP and A2A handle communication -- standardized protocols for tool use and agent messaging. The end-to-end flow is: discover via A2A, verify via ERC-8004, pay via x402, done. We deploy on L2s like Base, Celo, and Avalanche for sub-cent transaction fees.
+-->
 
 ---
 
@@ -224,6 +240,10 @@ All endpoints return structured JSON. Machine-readable. Agent-friendly.
 </div>
 </div>
 
+<!--
+Stack is the PerkOS middleware that makes all of this accessible via REST APIs. Instead of writing Solidity or using ethers.js to interact with contracts directly, you just call Stack endpoints. It handles multi-chain routing, ABI encoding, and follows web standards with dot-well-known discovery endpoints. Currently supports 38 networks including all major L2s. Everything you need to integrate ERC-8004 into your application is one HTTP call away.
+-->
+
 ---
 
 # Stack: Discovery in Practice
@@ -258,6 +278,10 @@ curl https://stack.perkos.xyz/api/llms.txt
 
 Returns plain-text instructions for AI agents -- quick-start guide, authentication flow, and endpoint reference.
 
+<!--
+Let me walk you through the discovery endpoints. The health check confirms Stack is online and returns the API version. The ERC-8004 descriptor at dot-well-known gives you everything about this agent: capabilities, payment methods, supported networks, contract addresses. And llms.txt is specifically designed for AI agents -- it returns plain text instructions that any LLM can parse to understand how to interact with Stack. These are all standard HTTP GET requests, nothing special needed.
+-->
+
 ---
 
 # Stack: Identity and Reputation
@@ -286,6 +310,10 @@ curl "https://stack.perkos.xyz/api/erc8004/reputation?agentId=1&network=celo"
 ```
 
 Returns on-chain feedback: score values, tag categories (e.g. `fx-trade`/`buy`), client addresses, and revocation status. Reputation is **signed int128** with configurable decimals -- supports both positive and negative feedback.
+
+<!--
+Identity lookup returns the registry contract info for any network. The identity registry is an ERC-721 -- each agent is literally an NFT with a tokenURI pointing to its agent card metadata. For reputation, you query by agent ID and get back all on-chain feedback: scores, tags for categorization like fx-trade or buy, which clients gave the feedback, and whether any feedback was revoked. Reputation uses signed int128 so it supports both positive and negative values with configurable decimal precision.
+-->
 
 ---
 
@@ -323,6 +351,10 @@ curl -X POST https://stack.perkos.xyz/api/v2/agents/onboard \
 
 One call returns: registration tx, x402 payment config, and registry addresses.
 
+<!--
+Onboarding is where it gets interesting. One POST request to Stack returns everything your agent needs: the registration transaction ready to sign, x402 payment configuration with the facilitator URL and pay-to address, and the ERC-8004 contract addresses for the chosen network. In production, your agent calls onboard, signs the returned transaction with its wallet, and it's registered on-chain. No dashboard, no manual setup. Fully programmatic.
+-->
+
 ---
 
 # Stack: x402 Payment Flow
@@ -359,6 +391,10 @@ curl https://stack.perkos.xyz/api/v2/x402/health
 
 Returns per-network RPC latency, block numbers, and database health.
 
+<!--
+x402 is the payment layer. The supported endpoint lists all 38 network and scheme combinations. Two schemes: Exact for immediate USDC transfers verified on-chain, and Deferred for escrow-based batch settlement -- useful for high-frequency interactions where settling every single request would be too expensive. The verify endpoint validates a payment proof, and settle executes the on-chain transfer. In production, your server returns HTTP 402 with payment requirements, the client constructs a signed proof, and Stack handles the rest.
+-->
+
 ---
 
 # Hybrid Trust Models and Security
@@ -384,6 +420,10 @@ Returns per-network RPC latency, block numbers, and database health.
 
 Reputation is **portable** -- follows agents across platforms. No identity resets.
 
+<!--
+Security should scale with risk. A simple query doesn't need the same level of verification as a $10K DeFi operation. ERC-8004 supports this through tiered trust: reputation-only for low stakes, staked collateral for medium, and hardware attestations plus zero-knowledge proofs for critical operations. The key insight is that reputation is portable -- it follows agents across platforms, so bad actors can't just reset their identity.
+-->
+
 ---
 
 <!-- _class: title -->
@@ -395,6 +435,10 @@ Reputation is **portable** -- follows agents across platforms. No identity reset
 Clone the repo and follow along:
 
 `github.com/PerkOS-xyz/ERC-8004-Workshop`
+
+<!--
+Now let's get hands-on. We have six exercises that walk through the complete Stack API. Clone the repo, and we'll work through them together. No wallet or private key needed for the read operations -- we're querying live data on Celo mainnet.
+-->
 
 ---
 
@@ -428,6 +472,10 @@ examples/stack-api/src/
 
 All examples use `fetch()` against `https://stack.perkos.xyz` -- no SDK required.
 
+<!--
+Setup is simple: Node 18 or higher, npm, and a terminal. No wallet needed for read operations. Just cd into examples/stack-api and run npm install. All six examples are standalone TypeScript files that use native fetch against the production Stack API. No SDK, no dependencies beyond chalk for colored output.
+-->
+
 ---
 
 # Exercise 1: Discovery
@@ -449,6 +497,10 @@ npx tsx src/01-discover.ts
 ## Key Takeaway
 
 A single domain exposes the full agent profile. Any agent (or human) can discover capabilities, trust scores, and payment terms through standard HTTP requests.
+
+<!--
+Run the first exercise and you'll see five discovery endpoints in action. The key takeaway here is that a single domain exposes the full agent profile. Any agent or human can discover capabilities, trust scores, and payment terms through standard HTTP requests. This is the foundation of the machine economy -- discoverability without intermediaries.
+-->
 
 ---
 
@@ -478,6 +530,10 @@ Returns aggregated feedback: score summary, individual feedback entries with tag
 
 - **Identity Registry:** `0x8004A169FB4a3325136EB29fA0ceB6D2e539a432`
 - **Reputation Registry:** `0x8004BAa17C55a88189AE136b182e5fdA19dE9b63`
+
+<!--
+Exercises 2 and 3 query real on-chain data. The identity lookup shows you the registry contract on Celo. The reputation query returns actual feedback for agent ID 1 -- you'll see a score of 85, tagged as an fx-trade buy operation. You can pass your own address or agent ID as arguments. Note the contract addresses are the same across all EVM chains -- they use CREATE2 deterministic deployment.
+-->
 
 ---
 
@@ -509,6 +565,10 @@ Agent calls /api/v2/agents/onboard
 
 No manual setup. No dashboard. Fully programmatic.
 
+<!--
+Exercise 4 shows agent onboarding. When you run this, Stack returns the complete registration package: the transaction to sign, x402 payment config, and registry addresses. In production, an agent would sign this transaction with its wallet and be registered on-chain in one step. This is how we make agent registration zero-friction -- one API call gets you everything.
+-->
+
 ---
 
 # Exercise 5: x402 Payment Lifecycle
@@ -535,6 +595,10 @@ npx tsx src/05-x402-flow.ts
 
 The server returns HTTP 402 with payment requirements. The client constructs a signed payment proof. Stack verifies and settles. The resource is unlocked.
 
+<!--
+Exercise 5 demonstrates the x402 payment lifecycle. You'll see the 38 supported network-scheme pairs, the health check with per-network RPC latency, and the verify and settle endpoints. In the workshop we use placeholder data since we're not executing real payments, but the flow is exactly what happens in production. Two schemes: Exact for immediate settlement, Deferred for batched escrow-based settlement.
+-->
+
 ---
 
 # Exercise 6: Full Integration Flow
@@ -553,6 +617,10 @@ npx tsx src/06-full-flow.ts
 4. **Onboard** -- register a new agent and get x402 config
 
 This is the complete lifecycle: discover an agent, verify its identity and reputation, then onboard your own agent to participate in the same network.
+
+<!--
+The final exercise ties it all together. Discover, identity, reputation, onboard -- the complete agent lifecycle in one script. This is what a real integration looks like: you discover an agent, check its identity and reputation before interacting, then register your own agent to participate in the same network. Run it and you'll see the full flow against live production data.
+-->
 
 ---
 
@@ -579,6 +647,10 @@ This is the complete lifecycle: discover an agent, verify its identity and reput
 
 Direct contract interaction examples are available in `examples/direct-contract/`. These use ethers.js to call the ERC-8004 registries directly -- useful for custom integrations or when you need write operations without Stack as intermediary.
 
+<!--
+This diagram shows how Stack fits in. Your agent or application makes HTTP requests to Stack, and Stack handles all the blockchain interaction: multi-chain routing across 38 networks, ABI encoding, discovery protocols following web standards, and x402 payment facilitation. For advanced users who want to interact with the contracts directly, we have separate examples using ethers.js in the direct-contract directory.
+-->
+
 ---
 
 # Key Contract Addresses
@@ -600,6 +672,10 @@ Direct contract interaction examples are available in `examples/direct-contract/
 
 Same addresses across all mainnet EVM chains.
 
+<!--
+Here are the contract addresses. Notice they are identical across all seven mainnet chains -- this is thanks to CREATE2 deterministic deployment. One address for Identity, one for Reputation, everywhere. This makes cross-chain agent interoperability straightforward: same agent ID, same contracts, same addresses, any chain.
+-->
+
 ---
 
 <!-- _class: title -->
@@ -611,6 +687,10 @@ Same addresses across all mainnet EVM chains.
 Discover -- Verify -- Pay -- Repeat
 
 `stack.perkos.xyz`
+
+<!--
+To recap: ERC-8004 gives agents trustless identity and reputation. x402 gives them native payments. Stack makes it all accessible through simple REST APIs. Discover, verify, pay, repeat. That's the machine economy. Stack is live at stack.perkos.xyz -- go build something.
+-->
 
 ---
 
