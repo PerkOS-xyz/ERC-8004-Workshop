@@ -248,6 +248,9 @@ Stack is the PerkOS middleware that makes all of this accessible via REST APIs. 
 
 # Stack: Discovery in Practice
 
+<div class="cols">
+<div class="col">
+
 ## Health Check
 
 ```bash
@@ -255,28 +258,28 @@ curl https://stack.perkos.xyz/api/health
 ```
 
 ```json
-{
-  "status": "healthy",
+{ "status": "healthy",
   "service": "perkos-stack",
-  "version": "2.0.0"
-}
+  "version": "2.0.0" }
 ```
 
-## ERC-8004 Descriptor
+</div>
+<div class="col">
+
+## Other Discovery Endpoints
 
 ```bash
-curl https://stack.perkos.xyz/.well-known/erc-8004.json
+# Agent descriptor
+curl /.well-known/erc-8004.json
+
+# LLM instructions
+curl /api/llms.txt
 ```
 
-Returns the full agent descriptor: capabilities, payment methods, supported networks, reputation data, contract addresses, and protocol version.
+Returns capabilities, payment methods, networks, contract addresses, and agent onboarding guide.
 
-## LLM Instructions
-
-```bash
-curl https://stack.perkos.xyz/api/llms.txt
-```
-
-Returns plain-text instructions for AI agents -- quick-start guide, authentication flow, and endpoint reference.
+</div>
+</div>
 
 <!--
 Let me walk you through the discovery endpoints. The health check confirms Stack is online and returns the API version. The ERC-8004 descriptor at dot-well-known gives you everything about this agent: capabilities, payment methods, supported networks, contract addresses. And llms.txt is specifically designed for AI agents -- it returns plain text instructions that any LLM can parse to understand how to interact with Stack. These are all standard HTTP GET requests, nothing special needed.
@@ -286,30 +289,33 @@ Let me walk you through the discovery endpoints. The health check confirms Stack
 
 # Stack: Identity and Reputation
 
+<div class="cols">
+<div class="col">
+
 ## Identity Lookup
 
 ```bash
-curl "https://stack.perkos.xyz/api/erc8004/identity?address=0x3f0D...46C&network=celo"
+curl "https://stack.perkos.xyz/api/erc8004/
+  identity?address=0x3f0D...46C
+  &network=celo"
 ```
 
-```json
-{
-  "network": "celo",
-  "registryAddress": "0x8004A169FB4a3325136EB29fA0ceB6D2e539a432",
-  "name": "AgentIdentity",
-  "symbol": "AGENT",
-  "version": "2.0.0",
-  "spec": "ERC-8004"
-}
-```
+Returns: registry address, agent NFT name, symbol, version, ERC-8004 spec.
+
+</div>
+<div class="col">
 
 ## Reputation Query
 
 ```bash
-curl "https://stack.perkos.xyz/api/erc8004/reputation?agentId=1&network=celo"
+curl "https://stack.perkos.xyz/api/erc8004/
+  reputation?agentId=1&network=celo"
 ```
 
-Returns on-chain feedback: score values, tag categories (e.g. `fx-trade`/`buy`), client addresses, and revocation status. Reputation is **signed int128** with configurable decimals -- supports both positive and negative feedback.
+Returns: score values, tag categories (`fx-trade`/`buy`), client addresses, revocation status. **Signed int128** with configurable decimals.
+
+</div>
+</div>
 
 <!--
 Identity lookup returns the registry contract info for any network. The identity registry is an ERC-721 -- each agent is literally an NFT with a tokenURI pointing to its agent card metadata. For reputation, you query by agent ID and get back all on-chain feedback: scores, tags for categorization like fx-trade or buy, which clients gave the feedback, and whether any feedback was revoked. Reputation uses signed int128 so it supports both positive and negative values with configurable decimal precision.
@@ -324,32 +330,25 @@ Identity lookup returns the registry contract info for any network. The identity
 ```bash
 curl -X POST https://stack.perkos.xyz/api/v2/agents/onboard \
   -H "Content-Type: application/json" \
-  -d '{"network":"celo","name":"my-agent","description":"Workshop test agent"}'
+  -d '{"network":"celo","name":"my-agent"}'
 ```
 
-```json
-{
-  "success": true,
-  "registration": {
-    "to": "0x8004A169FB4a3325136EB29fA0ceB6D2e539a432",
-    "network": "celo",
-    "function": "register()",
-    "description": "Register as an agent in the ERC-8004 Identity Registry"
-  },
-  "x402": {
-    "facilitator": "https://stack.perkos.xyz",
-    "payTo": "0x3f0D...46C",
-    "network": "celo",
-    "schemes": ["exact", "deferred"]
-  },
-  "erc8004": {
-    "identityRegistry": "0x8004A169FB4a3325136EB29fA0ceB6D2e539a432",
-    "reputationRegistry": "0x8004BAa17C55a88189AE136b182e5fdA19dE9b63"
-  }
-}
-```
+## Response: Complete Onboarding Package
 
-One call returns: registration tx, x402 payment config, and registry addresses.
+<div class="cols">
+<div class="col">
+
+- **Registration tx** -- contract, function, ready to sign
+- **x402 config** -- facilitator URL, pay-to address, schemes
+- **ERC-8004 registries** -- identity + reputation addresses
+
+</div>
+<div class="col">
+
+**One call returns everything.** No dashboard, no manual setup. Agent signs the tx and is registered on-chain.
+
+</div>
+</div>
 
 <!--
 Onboarding is where it gets interesting. One POST request to Stack returns everything your agent needs: the registration transaction ready to sign, x402 payment configuration with the facilitator URL and pay-to address, and the ERC-8004 contract addresses for the chosen network. In production, your agent calls onboard, signs the returned transaction with its wallet, and it's registered on-chain. No dashboard, no manual setup. Fully programmatic.
@@ -359,37 +358,34 @@ Onboarding is where it gets interesting. One POST request to Stack returns every
 
 # Stack: x402 Payment Flow
 
-## Supported Networks
+<div class="cols">
+<div class="col">
 
-```bash
-curl https://stack.perkos.xyz/api/v2/x402/supported
+## Endpoints
+
+```
+GET  /api/v2/x402/supported
+POST /api/v2/x402/verify
+POST /api/v2/x402/settle
+GET  /api/v2/x402/health
 ```
 
-Returns all 38 network/scheme pairs: `exact` (immediate) and `deferred` (batch settlement with escrow).
+**38 network/scheme pairs** across mainnet and testnet.
 
-## Verify a Payment
+</div>
+<div class="col">
 
-```bash
-curl -X POST https://stack.perkos.xyz/api/v2/x402/verify \
-  -H "Content-Type: application/json" \
-  -d '{"payload":"...","x402Version":1,"scheme":"exact","network":"celo",...}'
-```
+## Two Schemes
 
-## Settle a Payment
+- **Exact** -- immediate USDC transfer, verified on-chain
+- **Deferred** -- escrow-based, batch settlement
 
-```bash
-curl -X POST https://stack.perkos.xyz/api/v2/x402/settle \
-  -H "Content-Type: application/json" \
-  -d '{"payload":"...","x402Version":1,"scheme":"exact","network":"celo",...}'
-```
+## Flow
 
-## Health with Latency
+Server returns HTTP 402 --> Client sends signed proof --> Stack verifies --> Stack settles on-chain --> Resource unlocked
 
-```bash
-curl https://stack.perkos.xyz/api/v2/x402/health
-```
-
-Returns per-network RPC latency, block numbers, and database health.
+</div>
+</div>
 
 <!--
 x402 is the payment layer. The supported endpoint lists all 38 network and scheme combinations. Two schemes: Exact for immediate USDC transfers verified on-chain, and Deferred for escrow-based batch settlement -- useful for high-frequency interactions where settling every single request would be too expensive. The verify endpoint validates a payment proof, and settle executes the on-chain transfer. In production, your server returns HTTP 402 with payment requirements, the client constructs a signed proof, and Stack handles the rest.
