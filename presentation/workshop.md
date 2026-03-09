@@ -464,16 +464,17 @@ npm install
 </div>
 <div class="col">
 
-## 6 Exercises
+## 7 Exercises
 
-| # | File | Topic |
-|---|------|-------|
-| 1 | `01-discover.ts` | Discovery endpoints |
-| 2 | `02-identity.ts` | Identity registry |
-| 3 | `03-reputation.ts` | Reputation query |
-| 4 | `04-onboard.ts` | Agent registration |
-| 5 | `05-x402-flow.ts` | Payment lifecycle |
-| 6 | `06-full-flow.ts` | End-to-end |
+| # | Topic | Details |
+|---|-------|---------|
+| 1 | [Discovery](https://github.com/PerkOS-xyz/perkos-workshop-cli/blob/main/exercises/01-discovery.md) | 5 standard endpoints |
+| 2 | [Identity](https://github.com/PerkOS-xyz/perkos-workshop-cli/blob/main/exercises/02-identity.md) | On-chain registry lookup |
+| 3 | [Reputation](https://github.com/PerkOS-xyz/perkos-workshop-cli/blob/main/exercises/03-reputation.md) | Score & feedback query |
+| 4 | [Onboarding](https://github.com/PerkOS-xyz/perkos-workshop-cli/blob/main/exercises/04-onboarding.md) | Agent registration package |
+| 5 | [x402 Payment](https://github.com/PerkOS-xyz/perkos-workshop-cli/blob/main/exercises/05-x402-payment.md) | Payment lifecycle |
+| 6 | [Full Flow](https://github.com/PerkOS-xyz/perkos-workshop-cli/blob/main/exercises/06-full-flow.md) | End-to-end integration |
+| 7 | [Live Registration](https://github.com/PerkOS-xyz/perkos-workshop-cli/blob/main/exercises/07-live-registration.md) | Real on-chain tx ⛓️ |
 
 </div>
 </div>
