@@ -560,32 +560,26 @@ Exercises 2 and 3 query real on-chain data. The identity lookup shows you the re
 npx tsx src/04-onboard.ts
 ```
 
-## Stack Returns a Complete Onboarding Package
-
 <div class="cols">
 <div class="col">
 
+## Onboarding Package
+
 1. **Registration tx** -- contract + function, ready to sign
-2. **x402 config** -- facilitator URL, pay-to address, schemes
-3. **Registry addresses** -- identity + reputation for the network
+2. **x402 config** -- facilitator URL, pay-to address
+3. **Registry addresses** -- identity + reputation
 
 </div>
 <div class="col">
 
 ## Production Flow
 
-<div class="diagram">
-<div class="box box-pink" style="width:90%"><small>Agent calls <code>/api/v2/agents/onboard</code></small></div>
-<div style="color:#eb1b69; margin:2px 0">↓</div>
-<div class="box box-orange" style="width:90%"><small>Signs tx with its wallet</small></div>
-<div style="color:#eb1b69; margin:2px 0">↓</div>
-<div class="box box-green" style="width:90%"><small>Registered on-chain + x402 ready</small></div>
-</div>
+Call `/api/v2/agents/onboard` → Sign tx → **On-chain + x402 ready**
+
+No dashboard. No manual setup. Fully programmatic.
 
 </div>
 </div>
-
-No dashboard. No manual setup. **Fully programmatic.**
 
 <!--
 Exercise 4 shows agent onboarding. When you run this, Stack returns the complete registration package: the transaction to sign, x402 payment config, and registry addresses. In production, an agent would sign this transaction with its wallet and be registered on-chain in one step. This is how we make agent registration zero-friction -- one API call gets you everything.
