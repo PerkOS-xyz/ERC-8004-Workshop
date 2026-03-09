@@ -1,5 +1,5 @@
 export const STACK_BASE_URL = "https://stack.perkos.xyz";
-export const DEFAULT_NETWORK = "celo";
+export const DEFAULT_NETWORK = "base";
 export const DEFAULT_ADDRESS = "0x3f0D7b9916212fA0A9Ac0EF8f72a25EB56F7046C";
 
 export function stackUrl(path: string): string {

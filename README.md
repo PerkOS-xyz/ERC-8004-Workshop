@@ -29,17 +29,17 @@ Fetches health check, agent card, ERC-8004 descriptor, x402 discovery, and LLM i
 ```bash
 npx tsx src/02-identity.ts
 # Or with custom address:
-npx tsx src/02-identity.ts 0xYOUR_ADDRESS celo
+npx tsx src/02-identity.ts 0xYOUR_ADDRESS base
 ```
 
-Queries the ERC-8004 Identity Registry on Celo. Returns registry contract info, agent NFT metadata, and spec version.
+Queries the ERC-8004 Identity Registry on Base. Returns registry contract info, agent NFT metadata, and spec version.
 
 ### Step 3: Query Agent Reputation
 
 ```bash
 npx tsx src/03-reputation.ts
 # Or with custom agent ID:
-npx tsx src/03-reputation.ts 1 celo
+npx tsx src/03-reputation.ts 1 base
 ```
 
 Returns on-chain feedback: scores, tag categories, client addresses, and revocation status.

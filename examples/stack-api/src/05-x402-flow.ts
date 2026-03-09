@@ -23,7 +23,7 @@ async function main() {
   console.log(chalk.yellow("--- Step 3: Verify Payment ---"));
   const verifyPayload = {
     payment: "0xDEADBEEF",
-    network: "celo",
+    network: "base",
     resource: "https://example.com/protected",
   };
   console.log(chalk.dim("Request:"), JSON.stringify(verifyPayload));
@@ -37,7 +37,7 @@ async function main() {
   console.log(chalk.yellow("--- Step 4: Settle Payment ---"));
   const settlePayload = {
     payment: "0xDEADBEEF",
-    network: "celo",
+    network: "base",
   };
   console.log(chalk.dim("Request:"), JSON.stringify(settlePayload));
   const settle = await stackPost("/api/v2/x402/settle", settlePayload);
