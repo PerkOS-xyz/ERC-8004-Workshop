@@ -1,5 +1,7 @@
 # Live Demo: Running the Workshop Examples
 
+![Workshop Demo](workshop-demo.svg)
+
 This guide walks through each exercise step by step. All examples run against **Base mainnet** via `stack.perkos.xyz`.
 
 ## Setup
