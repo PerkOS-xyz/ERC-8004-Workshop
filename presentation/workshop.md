@@ -696,13 +696,11 @@ This diagram shows how Stack fits in. Your agent or application makes HTTP reque
 </div>
 <div class="col">
 
-### Deployed On
+### Same Address on ALL These Chains
 
-Avalanche, Base, Celo, Ethereum, Polygon, Arbitrum, Optimism + all testnets
+Base, Celo, Avalanche, Ethereum, Polygon, Arbitrum, Optimism + testnets
 
-### Why Same Address?
-
-**CREATE2** deterministic deployment -- one address, every chain. Cross-chain agent interop is seamless.
+**CREATE2 deterministic deployment** -- deploy once, get the same address everywhere. Your agent ID works cross-chain.
 
 </div>
 </div>
