@@ -167,4 +167,7 @@ deployment.env
 # Temporary files
 tmp/
 temp/
-*.tmp
+*.tmppresentation/*.png
+presentation/*.html
+presentation/*.pdf
+**/package-lock.json

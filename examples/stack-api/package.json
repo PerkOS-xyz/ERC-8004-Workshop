@@ -1,0 +1,21 @@
+{
+  "name": "erc-8004-stack-api-examples",
+  "version": "1.0.0",
+  "private": true,
+  "description": "ERC-8004 Workshop examples using PerkOS Stack REST API",
+  "scripts": {
+    "discover": "tsx src/01-discover.ts",
+    "identity": "tsx src/02-identity.ts",
+    "reputation": "tsx src/03-reputation.ts",
+    "onboard": "tsx src/04-onboard.ts",
+    "x402": "tsx src/05-x402-flow.ts",
+    "full": "tsx src/06-full-flow.ts"
+  },
+  "dependencies": {
+    "chalk": "^5.3.0"
+  },
+  "devDependencies": {
+    "tsx": "^4.7.0",
+    "typescript": "^5.3.3"
+  }
+}
