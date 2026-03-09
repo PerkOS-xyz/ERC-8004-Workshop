@@ -88,6 +88,8 @@ style: |
 
 <!-- _class: title -->
 
+![w:120](julio-avatar.png)
+
 # ERC-8004
 
 ## The Trustless Agent Economy
@@ -609,5 +611,37 @@ Same addresses across all mainnet EVM chains.
 Discover -- Verify -- Pay -- Repeat
 
 `stack.perkos.xyz`
+
+---
+
+# Connect With Us
+
+<div style="display: flex; justify-content: space-around; align-items: center; margin-top: 20px;">
+
+<div style="text-align: center;">
+
+![w:180](qr-perkos.png)
+
+**PerkOS.xyz**
+
+</div>
+
+<div style="text-align: center;">
+
+![w:180](qr-twitter.png)
+
+**@perk_os**
+
+</div>
+
+<div style="text-align: center;">
+
+![w:180](qr-workshop.png)
+
+**Workshop Repo**
+
+</div>
+
+</div>
 
 ---
